@@ -1,5 +1,5 @@
-function ErrPage() {
+export default function Custom404() {
     return <>
-        Drink not found
+        404 Drink not found
     </>
 }

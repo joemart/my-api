@@ -1,8 +1,11 @@
+import Login from "@/pages/components/login-btn"
+export default function BattleNet() {
 
-export default function Drinks() {
+
+
   return (
     <>
-      Drinks
+      <Login></Login>
     </>
   )
 }
