@@ -29,6 +29,13 @@ There's 2 kinds of OAuth that the `battlenet provider` requests:
 1. CLient credentials flow
 2. Authorization code flow
 
-`Next-auth` already does the `Authorization code flow` approach
+`Next-auth` already does the `Authorization code flow` approach.
 
-I'll start with the `Client credentials flow` which I will need to do a post request
+Use the `jwt` and `session` call back functions to pass the `access token` to the
+frontend.
+
+Once we have the `access token` we can start making API calls as long as it's included
+in the parameters.
+
+The `WoW` API seems to be the only one (somewhat) working. The `SC2` and `D3` need `{account}`
+and `:profileId` in their parameters and for some reason they don't work with the API requests.
