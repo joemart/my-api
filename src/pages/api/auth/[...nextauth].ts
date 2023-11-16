@@ -2,6 +2,7 @@ import { DefaultSession, NextAuthOptions, User, getServerSession } from "next-au
 import BattleNetProvider from "next-auth/providers/battlenet"
 import GithubProvider from "next-auth/providers/github"
 import NextAuth from "next-auth/next";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 declare module 'next-auth' {
     /**
@@ -12,18 +13,19 @@ declare module 'next-auth' {
     }
   }
 
-export const authConfig: NextAuthOptions = {
+export const authConfig = ():NextAuthOptions => {
+    return ({
+
     providers: [
         BattleNetProvider({
             clientId: process.env.BNET_CLIENT_ID as string,
             clientSecret: process.env.BNET_CLIENT_SECRET as string,
             issuer: "https://us.battle.net/oauth",
- 
+            
             authorization: {
-                params:{scope:"openid wow.profile"}
-            },
-
-            wellKnown: "https://oauth.battle.net/.well-known/openid-configuration"
+                
+                params:{client_id: process.env.BNET_CLIENT_ID ,scope:"openid wow.profile sc2.profile d3.profile",  redirect_uri:"http://localhost:3000/api/auth/callback/battlenet", response_type:"code"}
+            }
 
         }),
         GithubProvider({
@@ -45,7 +47,17 @@ export const authConfig: NextAuthOptions = {
         return session
     }
     },
-    secret: process.env.JWT_SECRET
+    pages:{
+        signIn: "/auth/signin"
+    },
+
+    })
+
 }
 
-export default NextAuth(authConfig)
+// export default NextAuth(authConfig)
+
+export default async function auth(req : NextApiRequest, res:NextApiResponse){
+
+    return await NextAuth(req,res,authConfig())
+}
