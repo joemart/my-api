@@ -1,0 +1,107 @@
+@use "../mixins";
+@use "../breakpoints";
+
+.section{
+    @include mixins.pageTemplate();
+
+    background-image:url("/BattlenetBackground.png");
+    background-size: cover; 
+    background-position: 50%;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    @include breakpoints.phone(){
+        flex-direction: column;
+    }
+
+    &_container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+
+        max-width: 700px;
+        min-width: 350px;
+
+        h1{
+            font-size: 4rem;
+        }
+
+        h3{
+            font-size: 1.5rem;
+        }
+        
+        button{
+            color: white;
+            padding: 10px 40px;
+            background-color: #2B3350;
+            border-radius: 48px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            &:active{
+                background-color: rgba(65, 77, 122)
+            }
+            &:hover{
+                background-color: rgb(102, 122, 194)
+            }
+        }
+    } 
+}
+
+.card{
+    position: relative;
+    width: 350px;
+    height: 500px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+
+  
+
+   &:hover &_b, &:hover &_f{
+    
+        scale:1.1;
+    
+   }
+    
+
+    &:hover::after{
+        
+
+                background-color: rgba(0,0,0,.3)
+            }
+    &::after{
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        content:"";
+        background-color: rgba(0,0,0,.7);
+        transition: 1s all ease-out;
+    }
+
+    &_b{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: 1s all ease-out;
+
+    }
+    &_f{
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        height: fit-content;
+        transition: 1s all ease-out;
+    }
+}

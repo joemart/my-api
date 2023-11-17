@@ -1,0 +1,11 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body, :root, #__next{
+    height:100%;
+    width:100%;
+    margin:0;
+    font-family: inherit;
+    // font-family: var(--font-Aquire);
+}

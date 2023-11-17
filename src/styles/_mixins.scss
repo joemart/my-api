@@ -1,0 +1,10 @@
+@use "./variables";
+
+@mixin pageTemplate(){
+    position: relative;
+    width: variables.$pageWidth;
+    min-height: variables.$pageHeight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

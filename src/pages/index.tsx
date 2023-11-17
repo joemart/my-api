@@ -1,13 +1,15 @@
-import Login from "@/pages/components/login-btn"
-import AccessToken from "@/pages/components/accessToken"
+import Home from "./components/Home"
+import Navbar from "./components/Navbar"
+import { useSession, signOut } from "next-auth/react"
+
 export default function BattleNet() {
 
-
+  const session = useSession()
 
   return (
     <>
-      <Login></Login>
-      <AccessToken></AccessToken>
+      <Navbar signOut={signOut} />
+      <Home />
     </>
   )
 }
