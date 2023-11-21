@@ -13,17 +13,20 @@ import WoWFG from "/public/WoWForeground.png"
 
 type Card = {
     backgroundImg: StaticImageData,
-    foregroundImg: StaticImageData
+    foregroundImg: StaticImageData,
+    url: string
 }
 
 const Imgs = [
-    { b: D3BG, f: D3FG },
-    { b: SC2BG, f: SC2FG },
-    { b: WoWBG, f: WoWFG }
+    { b: D3BG, f: D3FG, url: "/D3" },
+    { b: SC2BG, f: SC2FG, url: "/SC2" },
+    { b: WoWBG, f: WoWFG, url: "/WoW" }
 ]
 
-const Card = ({ backgroundImg, foregroundImg }: Card) => {
-    return <div className={styles["card"]}>
+const Card = ({ backgroundImg, foregroundImg, url }: Card) => {
+    const router = useRouter()
+
+    return <div className={styles["card"]} onClick={() => router.push(url)}>
         <MyCustomLoader className={styles["card_b"]} src={backgroundImg}></MyCustomLoader>
         <MyCustomLoader className={styles["card_f"]} src={foregroundImg}></MyCustomLoader>
     </div>
@@ -31,7 +34,7 @@ const Card = ({ backgroundImg, foregroundImg }: Card) => {
 
 const Cards = () => {
     return <>
-        {Imgs.map((v, i) => <Card key={i} backgroundImg={v.b} foregroundImg={v.f}></Card>)}
+        {Imgs.map((v, i) => <Card key={i} backgroundImg={v.b} foregroundImg={v.f} url={v.url}></Card>)}
     </>
 }
 
@@ -48,6 +51,7 @@ const Home = () => {
     const router = useRouter()
 
     return <section className={styles["section"]}>
+        <div className={styles["section_color"]} />
         {status == "unauthenticated" ? <Section_Container router={router} /> : <Cards />}
     </section>
 }

@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react"
-import WoW from "./WoW"
+import WoW from "../WoW"
 import { useRouter } from "next/router"
 
 export default function Component() {
