@@ -1,12 +1,11 @@
 import { useSession } from "next-auth/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import styles from "@/styles/WoW/index.module.scss"
 
-type SortWoW = {
-    (a: string, b: string): string,
-    (a: number, b: number): number
+type SortTypes = string | number
+type SortWoW = <T extends SortTypes>(a: T, b: T) => number | undefined
 
-}
 
 const WoW = () => {
 
@@ -28,21 +27,20 @@ const WoW = () => {
         queryFn: async () => await getWoWdata
     })
 
+    //returns sorted array
+    const sortData = (property: string) => {
 
-    const sortWoW = (a: any, b: any) => {
-        if (typeof a == "string" && typeof b == "string") {
-            if (a > b)
-                return 1
-            if (a < b)
-                return -1
-            return 0
-        }
-        if (typeof a == "number" && typeof b == "number")
-            return a - b
+        return wowData.wow_accounts[0].characters.sort((a: { [key: string]: { name: string } }, b: { [key: string]: { name: string } }) => {
+            if (property == "name" || property == "level")
+                return a[property] > b[property] ? 1 : a[property] < b[property] ? -1 : 0
+            return a[property]?.name > b[property]?.name ? 1 : a[property]?.name < b[property]?.name ? -1 : 0
+        })
     }
 
+
     const WoWChars = !isLoading ? <>{
-        wowData.wow_accounts[0].characters.map(({
+
+        sortData(select).map(({
             name,
             level,
             realm: { name: realm },
@@ -52,7 +50,7 @@ const WoW = () => {
             faction: { name: f }
         }: {
             name: string,
-            level: number
+            level: number,
             realm: { name: string },
             playable_class: { name: string },
             playable_race: { name: string },
@@ -61,19 +59,32 @@ const WoW = () => {
 
         },
             i: number) => {
-            return <div key={i}>
-                <div>Name: {name}</div>
-                <div>Level: {level}</div>
-                <div>Player Race: {playerRace}</div>
-                <div>Gender: {g}</div>
-                <div>Faction: {f}</div>
-                <div>Realm: {realm}</div>
-                <div>Player Class: {playerClass}</div>
+            return <><div key={i}>
+                <div className={`${styles["select"]} ${select == "name" ? styles["select_active"] : ""}`}>Name: {name}</div>
+                <div className={`${styles["select"]} ${select == "level" ? styles["select_active"] : ""}`}>Level: {level}</div>
+                <div className={`${styles["select"]} ${select == "playable_race" ? styles["select_active"] : ""}`}>Player Race: {playerRace}</div>
+                <div className={`${styles["select"]} ${select == "gender" ? styles["select_active"] : ""}`}>Gender: {g}</div>
+                <div className={`${styles["select"]} ${select == "faction" ? styles["select_active"] : ""}`}>Faction: {f}</div>
+                <div className={`${styles["select"]} ${select == "realm" ? styles["select_active"] : ""}`}>Realm: {realm}</div>
+                <div className={`${styles["select"]} ${select == "playable_class" ? styles["select_active"] : ""}`}>Player Class: {playerClass}</div>
             </div>
+                <br />
+            </>
         })
     }</> : <>Loading...</>
 
+    const WoWSelect = <select value={select} onChange={e => setSelect(e.target.value)}>
+        <option value="name">Name</option>
+        <option value="level">Level</option>
+        <option value="realm">Realm</option>
+        <option value="playable_race">Player Race</option>
+        <option value="playable_class">Playable Class</option>
+        <option value="gender">Gender</option>
+        <option value="faction">Faction</option>
+    </select>
+
     return <section>WoW
+        {WoWSelect}
         {WoWChars}
     </section>
 }

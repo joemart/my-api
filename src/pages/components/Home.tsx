@@ -2,7 +2,7 @@ import styles from "@/styles/Home/index.module.scss"
 import { StaticImageData } from "next/image"
 import { NextRouter, useRouter } from "next/router"
 import MyCustomLoader from "./imageLoader/CustomLoader"
-import { useSession } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
 
 import D3BG from "/public/D3BackgroundCard.png"
 import D3FG from "/public/D3Foreground.png"
@@ -42,7 +42,7 @@ const Section_Container = ({ router }: { router: NextRouter }) => {
     return <div className={styles["section_container"]}>
         <h1>Welcome to my Blizzard API!</h1>
         <h3>This API uses the Next-Auth OAuth 2.0 to access the information and display it. You MUST have a blizzard account in the US in order for this to work.</h3>
-        <button onClick={() => router.push("/auth/signin")}>Sign In</button>
+        <button onClick={() => signIn()}>Sign In</button>
     </div>
 }
 
