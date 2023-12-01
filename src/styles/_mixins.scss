@@ -1,0 +1,39 @@
+@use "./variables";
+
+@mixin pageTemplate(){
+    position: relative;
+    width: variables.$pageWidth;
+    min-height: variables.$pageHeight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin color_layer($color, $blend){
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: $color;
+    mix-blend-mode: $blend;
+    inset:0;
+}
+
+@mixin background_color($image){
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+
+    background-image: url($image);
+    background-size: cover;
+    background-position: 50%;
+
+    &_normal{
+        @include color_layer(variables.$normal_BG, normal)
+    }
+    &_saturation{
+        @include color_layer(variables.$saturation_BG, saturation)
+    }
+    &_soft_light{
+        @include color_layer(variables.$soft_light_BG, soft-light)
+    }
+}

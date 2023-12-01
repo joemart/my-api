@@ -1,11 +1,9 @@
-import Login from "@/pages/components/login-btn"
+import Home from "./components/Home"
+
 export default function BattleNet() {
-
-
-
   return (
     <>
-      <Login></Login>
+      <Home />
     </>
   )
 }

@@ -9,7 +9,6 @@ declare module "next-auth" {
 
 export default function Component() {
     const { data } = useSession()
-    const { accessToken } = data
 
-    return <div>Access Token: {accessToken}</div>
+    return <div>Access Token: {data?.accessToken}</div>
 }
