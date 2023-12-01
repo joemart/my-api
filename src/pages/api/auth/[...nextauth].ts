@@ -24,7 +24,7 @@ export const authConfig = ():NextAuthOptions => {
             
             authorization: {
                 
-                params:{client_id: process.env.BNET_CLIENT_ID ,scope:"openid wow.profile sc2.profile d3.profile",  redirect_uri:"http://localhost:3000/api/auth/callback/battlenet", response_type:"code"}
+                params:{client_id: process.env.BNET_CLIENT_ID ,scope:"openid wow.profile sc2.profile d3.profile",  redirect_uri: process.env.BNET_REDIRECT_URL, response_type:"code"}
             }
 
         }),
