@@ -37,5 +37,9 @@ frontend.
 Once we have the `access token` we can start making API calls as long as it's included
 in the parameters.
 
-The `WoW` API seems to be the only one (somewhat) working. The `SC2` and `D3` need `{account}`
+The `WoW` API is the only one working. The `SC2` and `D3` need `{account}`
 and `:profileId` in their parameters and for some reason they don't work with the API requests.
+
+A few project references:
+
+1. [border images](https://www.youtube.com/watch?v=ypstT5UfCsk)
