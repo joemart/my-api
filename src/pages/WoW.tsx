@@ -106,7 +106,7 @@ const WoW = () => {
         <div className={styles["section_container"]}>
             World of warcraft characters
             <div className={styles["section_container_select"]}>
-                {WoWSelect}
+                Sort: {WoWSelect}
             </div>
             <div className={styles["section_container_character"]}>
                 {WoWChars}

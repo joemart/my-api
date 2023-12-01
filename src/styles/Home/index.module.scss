@@ -94,6 +94,20 @@
     cursor: pointer;
     overflow: hidden;
 
+    &_text{
+        position: absolute;
+        inset:0;
+
+        text-align: center;
+        font-size: 4rem;
+        z-index: 2;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        rotate: 45deg;
+    }
     
 
    &:hover &_b, &:hover &_f{
