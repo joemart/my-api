@@ -59,7 +59,7 @@ const Home = () => {
 }
 
 Home.getLayout = function getLayout(page: React.ReactNode) {
-    return { page }
+    return page
 }
 
 export default Home

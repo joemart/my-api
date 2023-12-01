@@ -1,6 +1,6 @@
-import { useSession, signIn, signOut } from "next-auth/react"
-import WoW from "../WoW"
+import { useSession, signOut } from "next-auth/react"
 import { useRouter } from "next/router"
+import MyCustomLoader from "./imageLoader/CustomLoader"
 
 export default function Component() {
 
@@ -9,12 +9,12 @@ export default function Component() {
 
 
     if (session) {
-        // console.log(session)
+
         return (
             <>
                 {status == "authenticated" ? <>Signed in as {session.user!.name} <br /></> : <></>}
                 <button onClick={() => signOut()}>Sign out</button>
-                <img src={session.user?.image as string} alt="" />
+                <MyCustomLoader src={session.user?.image as string} />
             </>
         )
     }
