@@ -27,7 +27,7 @@ export const authConfig = ():NextAuthOptions => {
                 params:{
                     client_id: process.env.BNET_CLIENT_ID ,
                     scope:"openid wow.profile sc2.profile d3.profile",  
-                    // redirect_uri: process.env.BNET_REDIRECT_URL, 
+                    redirect_uri: process.env.BNET_REDIRECT_URL, 
                     response_type:"code"}
             }
 
