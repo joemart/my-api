@@ -1,11 +1,64 @@
-.main{
+@use "../mixins";
+@use "../breakpoints";
 
+.section{
+    @include mixins.background_color("/BattlenetBackgroundWoW.png");
+
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include breakpoints.phone(){
+                height: fit-content;
+            }
+    &_container{
+            position: relative;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 4rem;
+            text-align: center;
+        @include breakpoints.both(){
+            margin-top:90px;
+        }
+            
+        &_character{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+           
+                &_item{
+                width: 380px;
+                height: 250px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+
+                font-size: 1rem;
+                text-align: left;
+                
+                border-image-source: url("/CharacterContainer.png");
+                border-image-width: 20px;
+                border-image-slice: 27 fill;
+                border-image-repeat: repeat;
+                
+                
+            }
+            
+            
+            
+        }
+    }
 }
 
 .select{
     position: relative;
-
-    
 }
 .select_active{
         background-color: rgb(248, 118, 118);

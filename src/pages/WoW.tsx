@@ -18,13 +18,14 @@ const WoW = () => {
             "Authorization": `Bearer ${data?.accessToken}`
         }
     }).then(async r => await r.json()).then(async r => {
-        console.log("Fetched")
+        // console.log("Fetched")
         return await r
     })
 
     const { data: wowData, isLoading } = useQuery({
         queryKey: ["characters"],
-        queryFn: async () => await getWoWdata
+        queryFn: async () => await getWoWdata,
+        staleTime: Infinity
     })
 
     //returns sorted array
@@ -37,39 +38,53 @@ const WoW = () => {
         })
     }
 
+    // type SelectDataType = ["name", "level", "playable_race", "playable_class", "gender", "faction","realm"]
+    const selectData = [
+        { value: "name", text: "Name" },
+        { value: "level", text: "Level" },
+        { value: "realm", text: "Realm" },
+        { value: "playable_race", text: "Player Race" },
+        { value: "playable_class", text: "Player Class" },
+        { value: "gender", text: "Gender" },
+        { value: "faction", text: "Faction" },
+
+    ]
+
+    const displayData = ({
+        name,
+        level,
+        realm: { name: realm },
+        playable_class: { name: playerClass },
+        playable_race: { name: playerRace },
+        gender: { name: g },
+        faction: { name: f }
+    }: {
+        name: string,
+        level: number,
+        realm: { name: string },
+        playable_class: { name: string },
+        playable_race: { name: string },
+        gender: { name: "Male" | "Female" },
+        faction: { name: "Horde" | "Alliance" }
+
+    }): any => {
+        const arrData = [name, level, realm, playerClass, playerRace, g, f]
+
+        return selectData.map((v: { value: string, text: string }, i: number) => {
+
+            return <div key={i} className={`${styles["select"]} ${select == v.value ? styles["select_active"] : ""}`}>{v.text}: {arrData[i]}</div>
+        })
+    }
+
+
 
     const WoWChars = !isLoading ? <>{
 
-        sortData(select).map(({
-            name,
-            level,
-            realm: { name: realm },
-            playable_class: { name: playerClass },
-            playable_race: { name: playerRace },
-            gender: { name: g },
-            faction: { name: f }
-        }: {
-            name: string,
-            level: number,
-            realm: { name: string },
-            playable_class: { name: string },
-            playable_race: { name: string },
-            gender: { name: "Male" | "Female" },
-            faction: { name: "Horde" | "Alliance" }
-
-        },
+        sortData(select).map((v: any,
             i: number) => {
-            return <><div key={i}>
-                <div className={`${styles["select"]} ${select == "name" ? styles["select_active"] : ""}`}>Name: {name}</div>
-                <div className={`${styles["select"]} ${select == "level" ? styles["select_active"] : ""}`}>Level: {level}</div>
-                <div className={`${styles["select"]} ${select == "playable_race" ? styles["select_active"] : ""}`}>Player Race: {playerRace}</div>
-                <div className={`${styles["select"]} ${select == "gender" ? styles["select_active"] : ""}`}>Gender: {g}</div>
-                <div className={`${styles["select"]} ${select == "faction" ? styles["select_active"] : ""}`}>Faction: {f}</div>
-                <div className={`${styles["select"]} ${select == "realm" ? styles["select_active"] : ""}`}>Realm: {realm}</div>
-                <div className={`${styles["select"]} ${select == "playable_class" ? styles["select_active"] : ""}`}>Player Class: {playerClass}</div>
-            </div>
+            return <div key={i} className={styles["section_container_character_item"]}> <div>{displayData(v)}</div>
                 <br />
-            </>
+            </div>
         })
     }</> : <>Loading...</>
 
@@ -83,10 +98,26 @@ const WoW = () => {
         <option value="faction">Faction</option>
     </select>
 
-    return <section>WoW
-        {WoWSelect}
-        {WoWChars}
+    return <section className={styles["section"]}>
+        <div className={styles["section_normal"]} />
+        <div className={styles["section_saturation"]} />
+        <div className={styles["section_soft_light"]} />
+
+        <div className={styles["section_container"]}>
+            World of warcraft characters
+            <div className={styles["section_container_select"]}>
+                {WoWSelect}
+            </div>
+            <div className={styles["section_container_character"]}>
+                {WoWChars}
+            </div>
+        </div>
+
     </section>
+}
+
+WoW.getLayout = function getLayout(page: React.ReactNode) {
+    return page
 }
 
 export default WoW
