@@ -1,6 +1,6 @@
 import styles from "@/styles/Home/index.module.scss"
 import { StaticImageData } from "next/image"
-import { NextRouter, useRouter } from "next/router"
+import { useRouter } from "next/router"
 import MyCustomLoader from "./imageLoader/CustomLoader"
 import { useSession, signIn } from "next-auth/react"
 
