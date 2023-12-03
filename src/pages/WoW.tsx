@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import styles from "@/styles/WoW/index.module.scss"
+import { GetServerSideProps } from "next"
 
 type SortTypes = string | number
 type SortWoW = <T extends SortTypes>(a: T, b: T) => number | undefined
@@ -115,6 +116,8 @@ const WoW = () => {
 
     </section>
 }
+
+
 
 WoW.getLayout = function getLayout(page: React.ReactNode) {
     return page
